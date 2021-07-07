@@ -63,7 +63,7 @@ uint32_t* start_window;//start screen buffer
 list<obstacle> obstacles;//list of obstacles
 auto active_obst_iterator = obstacles.begin(); 
 auto last_obst_to_draw_iterator = obstacles.begin();
-
+default_random_engine generator(static_cast<long unsigned int>(time(0)));
 //this function reads start screen from file
 void read_bmp_picture_from_file(string filename) {
     ifstream file_to_read;
@@ -150,7 +150,6 @@ void initialize() {
         first_game = false;
     }
     //generate first 10 obstacles
-    default_random_engine generator(static_cast<long unsigned int>(time(0)));
     uniform_int_distribution<int> distribution_for_pos(200, 500);
     uniform_int_distribution<int> distribution_for_height(70, 400);
     uniform_int_distribution<int> distribution_for_gate_height((int)(avg_gate_height * (1.0f - range_gate_height)), (int)(avg_gate_height * (1.0f + range_gate_height)));
@@ -214,7 +213,6 @@ void draw() {
         }
         if (obstacles.size() <= 5) { // if there are less than 6 obstacles in the list, add 5 new obstacles
             for (int i = 0; i < 5; i++) {
-                default_random_engine generator(static_cast<long unsigned int>(time(0)));
                 uniform_int_distribution<int> distribution_for_pos(200, 500);
                 uniform_int_distribution<int> distribution_for_height(70, 400);
                 uniform_int_distribution<int> distribution_for_gate_height((int)(avg_gate_height * (1.0f - range_gate_height)), (int)(avg_gate_height * (1.0f + range_gate_height)));
